@@ -1,8 +1,8 @@
 # Relatório de Bugs: Calculadora Científica (`Calculadora.py`)
 
-**Responsável pela análise:** Micael Araujo Souza Santos
-**Data da análise:** 07/11/2026
-**Arquivo analisado:** `Calculadora.py` (versão original, primeiro commit do repositório)
+- **Responsável pela análise:** Micael Araujo Souza Santos
+- **Data da análise:** 07/11/2026
+- **Arquivo analisado:** `Calculadora.py` (versão original, primeiro commit do repositório). Os números de linha citados são dessa versão. Depois da refatoração do fatorial, que acrescentou uma docstring, as linhas a partir da 24 ficam uma posição abaixo.
 
 ## Contexto geral (vale para todos os bugs)
 
@@ -28,7 +28,7 @@ python evidencias/reproduzir_bugs.py
 |---|---|---|---|---|
 | BUG-01 | Adição soma o primeiro número duas vezes | `adicao`, linha 4 | Crítico | Não resolvido |
 | BUG-02 | Divisão por zero encerra o programa | `divisao`, linha 13 | Alto | Não resolvido |
-| BUG-03 | Fatorial sempre retorna 0 | `fatorial`, linha 25 | Crítico | Em análise (escolhido para TDD) |
+| BUG-03 | Fatorial sempre retorna 0 | `fatorial`, linha 25 | Crítico | **Resolvido (TDD)** |
 | BUG-04 | Fatorial de número negativo retorna 1 | `fatorial`, linhas 23 a 27 | Médio | Não resolvido |
 | BUG-05 | Logaritmo natural usa função inexistente `np.ln` | `logaritmo_natural`, linha 32 | Crítico | Não resolvido |
 | BUG-06 | Logaritmo base 10 calcula o logaritmo natural | `logaritmo_base10`, linha 37 | Alto | Não resolvido |
@@ -167,6 +167,7 @@ Repetir com `0`.
 
 ### Evidências
 - `evidencias/saida_reproducao.txt`, blocos `[BUG-03]`: `fatorial(5)` retorna `0` e `fatorial(0)` retorna `0`.
+- Testes automatizados falhando antes da correção: `evidencias/tdd_1_red.txt` (`AssertionError: 0 != 120`).
 - **Screenshot** (execução de `python Calculadora.py` no PowerShell):
 
   ![bug03_fatorial](evidencias/img/bug03_fatorial.png)
@@ -180,7 +181,7 @@ Repetir com `0`.
 
 ### Registro e Acompanhamento
 - **Data de identificação:** 07/11/2026
-- **Status:** Em análise. Este bug foi escolhido para ser corrigido com TDD.
+- **Status:** **Resolvido** em 10/11/2026, com correção feita por TDD. Ver a seção [Correção do BUG-03 com TDD](#correção-do-bug-03-com-tdd).
 
 ---
 
@@ -638,3 +639,81 @@ ValueError: could not convert string to float: 'abc'
 ### Registro e Acompanhamento
 - **Data de identificação:** 07/11/2026
 - **Status:** Não resolvido
+
+---
+
+## Correção do BUG-03 com TDD
+
+### 1. Compreender o bug
+Revisei o relatório do BUG-03. O laço `for i in range(x+1)` começa em `i = 0`, e a primeira multiplicação (`fat *= 0`) zera o acumulador para sempre. Por isso, todo fatorial resulta em 0, inclusive `0!`, que deveria ser 1. O bug afeta só a função `fatorial`. O comportamento com números negativos é outro defeito (BUG-04) e ficou **fora do escopo** desta correção, para manter a mudança mínima.
+
+### 2. Preparação do ambiente de teste
+- Ferramentas: Python 3.14.4, framework `unittest` (biblioteca padrão) e NumPy 2.5.3 (`requirements.txt`).
+- Estado inicial: o código estava igual ao original (commit `Adiciona código original da calculadora científica`), com o bug reproduzível.
+- O BUG-12 (execução do menu no `import`) impedia importar o módulo nos testes. Para não corrigir dois bugs ao mesmo tempo, os testes **contornam** esse problema: durante o import, simulam a entrada `0` (Sair) com `unittest.mock` e descartam a saída do menu.
+
+### 3. Escrita do teste (fase vermelha)
+Os testes ficam em `test_calculadora.py`, na classe `TestFatorial`, e descrevem o comportamento esperado:
+
+| Teste | Verificação |
+|---|---|
+| `test_fatorial_de_5_e_120` | `fatorial(5) == 120` |
+| `test_fatorial_de_0_e_1` | `fatorial(0) == 1` |
+| `test_fatorial_de_1_e_1` | `fatorial(1) == 1` |
+| `test_fatorial_de_10` | `fatorial(10) == 3628800` |
+
+Também criei a classe `TestOperacoesQueJaFuncionam`, com testes de regressão para subtração, multiplicação, divisão, potência e raiz quadrada. Eles garantem que a correção não quebre o que já funcionava.
+
+Execução (`python -m unittest -v`): **os 4 testes do fatorial falharam**, por exemplo `AssertionError: 0 != 120`, confirmando o bug. Os 5 de regressão passaram. A saída completa está em `evidencias/tdd_1_red.txt`.
+
+### 4. Correção do código (fase verde)
+Correção minimamente viável, de uma linha só:
+
+```diff
+ def fatorial(x):
+     fat = 1
+-    for i in range(x+1):
++    for i in range(1, x+1):
+         fat *= i
+     return fat
+```
+
+Execução: **9 testes, todos passando**. A saída está em `evidencias/tdd_2_green.txt`.
+
+### 5. Refatoração
+Com os testes passando, melhorei a legibilidade sem mudar o comportamento:
+
+```python
+def fatorial(x):
+    """Retorna x! (produto de 1 até x). Por definição, 0! = 1."""
+    resultado = 1
+    for fator in range(2, x + 1):
+        resultado *= fator
+    return resultado
+```
+
+- Os nomes ficaram mais descritivos (`fat` virou `resultado`, `i` virou `fator`).
+- A docstring documenta a regra `0! = 1`.
+- O laço começa em 2, porque multiplicar por 1 não altera o resultado.
+
+Execução depois da refatoração: **9 testes, todos passando** (`evidencias/tdd_3_refactor.txt`). Também conferi que a saída para as entradas de -2 a 6 é idêntica à da fase verde, o que confirma que a refatoração não mudou o comportamento.
+
+### 6. Verificação final
+- Todos os testes do projeto passam: `python -m unittest -v` e `python -m pytest -v` executam 9 testes sem falhas (`evidencias/pytest_final.txt`).
+- O `evidencias/reproduzir_bugs.py` continua reproduzindo os outros 13 bugs. Só o resultado do BUG-03 mudou: `fatorial(5)` agora retorna `120`.
+- A correção não introduziu novos bugs, porque os testes de regressão das outras operações continuam passando.
+- **Revisão de código:** fiz uma autorrevisão do diff de cada commit (`git show`). O repositório público no GitHub permite que colegas e o professor revisem a solução pelo histórico de commits.
+
+### 7. O que foi alterado, por que, e como resolve
+| O quê | Por quê | Como resolve |
+|---|---|---|
+| O início do laço em `fatorial` mudou de `0` para `1` (e depois para `2`, na refatoração) | Multiplicar o acumulador por 0 zerava o resultado | O produto passa a usar só fatores de 1 até `x`, e o acumulador começa em 1, o que dá `0! = 1` e `n! = 1·2·…·n` |
+| Arquivo `test_calculadora.py` criado | Para provar o bug e evitar que ele volte (regressão) | Qualquer mudança futura que quebre o fatorial faz os testes falharem |
+
+### 8. Histórico de commits do ciclo TDD
+1. `Adiciona testes do fatorial que falham (TDD: fase vermelha)`
+2. `Corrige fatorial que sempre retornava 0 (TDD: fase verde)`
+3. `Refatora função fatorial mantendo os testes passando (TDD: refatoração)`
+
+### Pendências conhecidas
+Os outros bugs continuam com status **Não resolvido**. O próximo passo natural é aplicar o mesmo ciclo de TDD ao BUG-04 (fatorial de negativo) e ao BUG-12 (proteção `if __name__ == "__main__":`). O BUG-12 também simplificaria os testes, que não precisariam mais contornar o import.
