@@ -76,7 +76,9 @@ Também dá para reproduzir chamando `adicao(2, 3)` direto.
 
 ### Evidências
 - `evidencias/saida_reproducao.txt`, bloco `[BUG-01]`: `adicao(2, 3)` retorna `np.int64(7)`.
-- **Screenshot:** `evidencias/img/bug01_adicao.png` *(captura do terminal com os passos acima)*
+- **Screenshot** (execução de `python Calculadora.py` no PowerShell):
+
+  ![bug01_adicao](evidencias/img/bug01_adicao.png)
 
 ### Severidade e Impacto
 - **Severidade:** Crítico
@@ -123,7 +125,9 @@ Também dá para reproduzir chamando `adicao(2, 3)` direto.
 ZeroDivisionError: division by zero
 ```
 
-- **Screenshot:** `evidencias/img/bug02_divisao.png`
+- **Screenshot** (execução de `python Calculadora.py` no PowerShell):
+
+  ![bug02_divisao](evidencias/img/bug02_divisao.png)
 
 ### Severidade e Impacto
 - **Severidade:** Alto
@@ -163,7 +167,9 @@ Repetir com `0`.
 
 ### Evidências
 - `evidencias/saida_reproducao.txt`, blocos `[BUG-03]`: `fatorial(5)` retorna `0` e `fatorial(0)` retorna `0`.
-- **Screenshot:** `evidencias/img/bug03_fatorial.png`
+- **Screenshot** (execução de `python Calculadora.py` no PowerShell):
+
+  ![bug03_fatorial](evidencias/img/bug03_fatorial.png)
 
 ### Severidade e Impacto
 - **Severidade:** Crítico
@@ -246,7 +252,9 @@ Repetir com `0`.
 AttributeError: module 'numpy' has no attribute 'ln'
 ```
 
-- **Screenshot:** `evidencias/img/bug05_ln.png`
+- **Screenshot** (execução de `python Calculadora.py` no PowerShell):
+
+  ![bug05_ln](evidencias/img/bug05_ln.png)
 
 ### Severidade e Impacto
 - **Severidade:** Crítico
@@ -284,7 +292,9 @@ AttributeError: module 'numpy' has no attribute 'ln'
 
 ### Evidências
 - `evidencias/saida_reproducao.txt`, bloco `[BUG-06]`.
-- **Screenshot:** `evidencias/img/bug06_log10.png`
+- **Screenshot** (execução de `python Calculadora.py` no PowerShell):
+
+  ![bug06_log10](evidencias/img/bug06_log10.png)
 
 ### Severidade e Impacto
 - **Severidade:** Alto
@@ -364,7 +374,9 @@ Calculadora.py:37: RuntimeWarning: divide by zero encountered in log
 
 ### Evidências
 - `evidencias/saida_reproducao.txt`, bloco `[BUG-08]`.
-- **Screenshot:** `evidencias/img/bug08_seno.png`
+- **Screenshot** (execução de `python Calculadora.py` no PowerShell):
+
+  ![bug08_seno](evidencias/img/bug08_seno.png)
 
 ### Severidade e Impacto
 - **Severidade:** Alto
@@ -410,7 +422,9 @@ Calculadora.py:37: RuntimeWarning: divide by zero encountered in log
 NameError: name 'cosseno' is not defined
 ```
 
-- **Screenshot:** `evidencias/img/bug09_cosseno.png`
+- **Screenshot** (execução de `python Calculadora.py` no PowerShell):
+
+  ![bug09_cosseno](evidencias/img/bug09_cosseno.png)
 
 ### Severidade e Impacto
 - **Severidade:** Crítico
