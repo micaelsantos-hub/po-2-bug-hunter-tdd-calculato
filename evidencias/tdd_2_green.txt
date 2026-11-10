@@ -1,0 +1,14 @@
+test_fatorial_de_0_e_1 (test_calculadora.TestFatorial.test_fatorial_de_0_e_1) ... ok
+test_fatorial_de_10 (test_calculadora.TestFatorial.test_fatorial_de_10) ... ok
+test_fatorial_de_1_e_1 (test_calculadora.TestFatorial.test_fatorial_de_1_e_1) ... ok
+test_fatorial_de_5_e_120 (test_calculadora.TestFatorial.test_fatorial_de_5_e_120) ... ok
+test_divisao (test_calculadora.TestOperacoesQueJaFuncionam.test_divisao) ... ok
+test_multiplicacao (test_calculadora.TestOperacoesQueJaFuncionam.test_multiplicacao) ... ok
+test_potencia (test_calculadora.TestOperacoesQueJaFuncionam.test_potencia) ... ok
+test_raiz_quadrada (test_calculadora.TestOperacoesQueJaFuncionam.test_raiz_quadrada) ... ok
+test_subtracao (test_calculadora.TestOperacoesQueJaFuncionam.test_subtracao) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.002s
+
+OK
