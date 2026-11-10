@@ -1,0 +1,50 @@
+test_fatorial_de_0_e_1 (test_calculadora.TestFatorial.test_fatorial_de_0_e_1) ... FAIL
+test_fatorial_de_10 (test_calculadora.TestFatorial.test_fatorial_de_10) ... FAIL
+test_fatorial_de_1_e_1 (test_calculadora.TestFatorial.test_fatorial_de_1_e_1) ... FAIL
+test_fatorial_de_5_e_120 (test_calculadora.TestFatorial.test_fatorial_de_5_e_120) ... FAIL
+test_divisao (test_calculadora.TestOperacoesQueJaFuncionam.test_divisao) ... ok
+test_multiplicacao (test_calculadora.TestOperacoesQueJaFuncionam.test_multiplicacao) ... ok
+test_potencia (test_calculadora.TestOperacoesQueJaFuncionam.test_potencia) ... ok
+test_raiz_quadrada (test_calculadora.TestOperacoesQueJaFuncionam.test_raiz_quadrada) ... ok
+test_subtracao (test_calculadora.TestOperacoesQueJaFuncionam.test_subtracao) ... ok
+
+======================================================================
+FAIL: test_fatorial_de_0_e_1 (test_calculadora.TestFatorial.test_fatorial_de_0_e_1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_calculadora.py", line 29, in test_fatorial_de_0_e_1
+    self.assertEqual(calc.fatorial(0), 1)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 1
+
+======================================================================
+FAIL: test_fatorial_de_10 (test_calculadora.TestFatorial.test_fatorial_de_10)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_calculadora.py", line 35, in test_fatorial_de_10
+    self.assertEqual(calc.fatorial(10), 3628800)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 3628800
+
+======================================================================
+FAIL: test_fatorial_de_1_e_1 (test_calculadora.TestFatorial.test_fatorial_de_1_e_1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_calculadora.py", line 32, in test_fatorial_de_1_e_1
+    self.assertEqual(calc.fatorial(1), 1)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 1
+
+======================================================================
+FAIL: test_fatorial_de_5_e_120 (test_calculadora.TestFatorial.test_fatorial_de_5_e_120)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_calculadora.py", line 26, in test_fatorial_de_5_e_120
+    self.assertEqual(calc.fatorial(5), 120)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 120
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.005s
+
+FAILED (failures=4)
