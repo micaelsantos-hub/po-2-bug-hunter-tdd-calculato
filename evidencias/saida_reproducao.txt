@@ -1,0 +1,61 @@
+[BUG-12] import Calculadora
+    Esperado: nenhuma saída e nenhuma leitura de teclado
+    Obtido:   o menu foi exibido (16 linhas) e input() foi chamado; última linha: 'Calculadora encerrada.'
+
+[BUG-01] adicao(2, 3)
+    Esperado: 5
+    Obtido:   np.int64(7)
+
+[BUG-02] divisao(10.0, 0.0)
+    Esperado: mensagem de erro tratada
+    Obtido:   exceção -> ZeroDivisionError: division by zero
+
+[BUG-03] fatorial(5)
+    Esperado: 120
+    Obtido:   0
+
+[BUG-03] fatorial(0)
+    Esperado: 1
+    Obtido:   0
+
+[BUG-04] fatorial(-3)
+    Esperado: erro: fatorial de número negativo
+    Obtido:   1
+
+[BUG-05] logaritmo_natural(1)
+    Esperado: 0.0
+    Obtido:   exceção -> AttributeError: module 'numpy' has no attribute 'ln'
+
+[BUG-06] logaritmo_base10(100)
+    Esperado: 2.0
+    Obtido:   np.float64(4.605170185988092)
+
+[BUG-07] logaritmo_base10(0)
+    Esperado: mensagem de erro: número não positivo
+    Obtido:   np.float64(-inf)
+    Aviso:    RuntimeWarning: divide by zero encountered in log
+
+[BUG-14] raiz_quadrada(-4) + 1
+    Esperado: erro sinalizado por exceção, não por texto
+    Obtido:   exceção -> TypeError: can only concatenate str (not "int") to str
+
+[BUG-08] Menu: opção 10 (Seno) (entradas digitadas: ['10', 'n'])
+    Esperado: seno do ângulo informado
+    Saída:    Operação inválida. Tente novamente.
+
+[BUG-09] Menu: opção 11 (Cosseno), ângulo 0 (entradas digitadas: ['11', '0', 'n'])
+    Esperado: Resultado: 1.0
+    Obtido:   exceção -> NameError: name 'cosseno' is not defined
+
+[BUG-10] Menu: opção 12 (Tangente), ângulo 45 (entradas digitadas: ['12', '45', 'n'])
+    Esperado: Resultado: 1.0
+    Obtido:   exceção -> NameError: name 'tangente' is not defined
+
+[BUG-11] Menu: opção 1 com texto no lugar do número (entradas digitadas: ['1', 'abc'])
+    Esperado: mensagem pedindo um número válido
+    Obtido:   exceção -> ValueError: could not convert string to float: 'abc'
+
+[BUG-13] Menu: 1100 operações seguidas respondendo 's' para continuar
+    Esperado: a calculadora continua funcionando
+    Obtido:   exceção -> RecursionError: maximum recursion depth exceeded (após 995 operações)
+
